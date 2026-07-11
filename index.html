@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Floating animation for desktop/mobile */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        /* Desktop Hover + Mobile Touch Animations */
+        .gesture-btn {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-tap-highlight-color: transparent;
+        }
+        @media (hover: hover) {
+            .gesture-btn:hover {
+                transform: translateY(-4px) scale(1.02);
+                box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25);
+            }
+        }
+        .gesture-btn:active {
+            transform: translateY(-1px) scale(0.97);
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans overflow-x-hidden antialiased">
+
+    <!-- NAVIGATION BAR -->
+    <nav class="fixed top-0 left-0 w-full bg-slate-900/90 backdrop-blur-md z-50 border-b border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <a href="#" onclick="showPage('main'); window.scrollTo(0,0)" class="text-xl font-bold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Hello, I'M Swarnava Ganguly</a>
+            
+            <!-- Desktop Links (Hidden on Mobile) -->
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#home" onclick="showPage('main')" class="hover:text-indigo-400 transition-colors">Home</a>
+                <a href="#preparation" onclick="showPage('main')" class="hover:text-indigo-400 transition-colors">Resources</a>
+                <a href="#donation" onclick="showPage('main')" class="hover:text-indigo-400 transition-colors">Donate</a>
+                <a href="#contact-page" onclick="showPage('contact')" class="text-indigo-400 font-semibold hover:text-indigo-300 transition-colors cursor-pointer">Contact Me</a>
+            </div>
+
+            <!-- Hamburger Button (Visible on Mobile Only) -->
+            <button id="menu-btn" class="md:hidden w-10 h-10 flex items-center justify-center text-xl text-slate-300 focus:outline-none" aria-label="Toggle Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Dropdown Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-900 border-b border-slate-800 px-4 py-4 space-y-3 shadow-xl">
+            <a href="#home" onclick="toggleMobileMenu(); showPage('main')" class="block py-2 px-3 rounded-lg hover:bg-slate-800 transition-colors">Home</a>
+            <a href="#preparation" onclick="toggleMobileMenu(); showPage('main')" class="block py-2 px-3 rounded-lg hover:bg-slate-800 transition-colors">Resources</a>
+            <a href="#donation" onclick="toggleMobileMenu(); showPage('main')" class="block py-2 px-3 rounded-lg hover:bg-slate-800 transition-colors">Donate</a>
+            <a href="#contact-page" onclick="toggleMobileMenu(); showPage('contact')" class="block py-2 px-3 rounded-lg bg-indigo-600 text-white font-medium text-center transition-colors">Contact Me</a>
+        </div>
+    </nav>
+
+    <!-- ========================================== -->
+    <!-- MULTI-SECTION SCROLLING PAGE (PAGE 1)     -->
+    <!-- ========================================== -->
+    <div id="main-page" class="pt-16">
+        
+        <!-- SECTION 1: HOME & ABOUT -->
+        <section id="home" class="min-h-[calc(100vh-4rem)] flex flex-col justify-center items-center px-4 sm:px-6 max-w-6xl mx-auto py-12 md:py-24">
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-16 w-full">
+                
+                <!-- Profile Image container -->
+                <div class="w-full md:w-2/5 flex justify-center">
+                    <div class="animate-float relative w-48 h-48 sm:w-64 sm:h-64 rounded-full p-1 bg-gradient-to-tr from-indigo-500 to-cyan-500 shadow-xl shadow-indigo-500/10">
+                        <img src="mypic.jpeg" alt="Profile Picture" class="w-full h-full object-cover rounded-full border-4 border-slate-900">
+                    </div>
+                </div>
+                
+                <!-- Content text block -->
+                <div class="w-full md:w-3/5 text-center md:text-left">
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">Hi, I'm <span class="text-indigo-400">Swarnava Ganguly</span></h1>
+                    <p class="text-slate-400 text-base sm:text-lg mb-6 leading-relaxed max-w-2xl mx-auto md:mx-0">
+                        🎓 Electronics and Communication Engineering (ECE) Student at SVU, Barrackpore.Passionate about electronics, communication systems, embedded technology, and innovation. Dedicated to continuous learning, problem-solving, and developing practical engineering skills. Always eager to explore new technologies, work on impactful projects, and build a successful career in the field of engineering.
+
+"Learning today, innovating tomorrow." 🚀
+                    </p>
+                    
+                    <!-- Row 1: Credentials (CV & Resume Buttons) -->
+                    <div class="flex flex-col sm:flex-row justify-center md:justify-start gap-4 mb-4">
+                        <a href="#" class="gesture-btn min-h-[48px] px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-xl shadow-lg flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-file-arrow-down"></i> Download CV
+                        </a>
+                        <a href="#" class="gesture-btn min-h-[48px] px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium rounded-xl border border-slate-700 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-briefcase"></i> View Resume
+                        </a>
+                    </div>
+
+                    <!-- Row 2: Showcases (Projects & Innovation Buttons) -->
+                    <div class="flex flex-col sm:flex-row justify-center md:justify-start gap-4 mb-8">
+                        <a href="#" class="gesture-btn min-h-[48px] px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-medium rounded-xl shadow-md flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-diagram-project"></i> My Projects
+                        </a>
+                        <a href="#" class="gesture-btn min-h-[48px] px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-medium rounded-xl shadow-md flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-lightbulb"></i> Future Innovations
+                        </a>
+                    </div>
+                    
+                    <!-- Social Icons -->
+                    <div class="flex justify-center md:justify-start gap-4">
+                        <a href="https://www.instagram.com/swarnava.ganguly/" class="gesture-btn w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-xl text-pink-500" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61577167967509" class="gesture-btn w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-xl text-blue-600" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="https://github.com/Swarnava76" class="gesture-btn w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-xl text-white" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/swarnava-ganguly-b035b3319/" class="gesture-btn w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-xl text-blue-400" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: PREPARATION FOR FREE -->
+        <section id="preparation" class="min-h-screen bg-slate-800/30 flex flex-col justify-center items-center px-4 sm:px-6 py-20 border-t border-b border-slate-800">
+            <div class="max-w-5xl w-full text-center">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 tracking-tight">Preparation for Free</h2>
+                <p class="text-slate-400 text-sm sm:text-base mb-12 max-w-xl mx-auto">Get instant access to curated structural resources optimized for exam cracking.</p>
+                
+                <!-- Dynamic Resource Layout -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                    <!-- Button 1 -->
+                    <button class="gesture-btn w-full p-6 bg-gradient-to-b from-slate-800 to-slate-900 rounded-2xl border border-slate-700 text-left flex flex-col justify-between min-h-[12rem] group">
+                        <div class="text-indigo-400 text-3xl mb-4"><i class="fa-solid fa-book-open"></i></div>
+                        <div>
+                            <h3 class="font-bold text-lg mb-1 text-slate-200 group-hover:text-indigo-300">ECE Notes</h3>
+                            <p class="text-xs text-slate-400 leading-normal">Comprehensive syllabus notes tailored for the GATE Exam.</p>
+                        </div>
+                    </button>
+
+                    <!-- Button 2 -->
+                    <button class="gesture-btn w-full p-6 bg-gradient-to-b from-slate-800 to-slate-900 rounded-2xl border border-slate-700 text-left flex flex-col justify-between min-h-[12rem] group">
+                        <div class="text-cyan-400 text-3xl mb-4"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                        <div>
+                            <h3 class="font-bold text-lg mb-1 text-slate-200 group-hover:text-cyan-300">Previous Year Questions</h3>
+                            <p class="text-xs text-slate-400 leading-normal">Step-by-step solved papers from past GATE exams.</p>
+                        </div>
+                    </button>
+
+                    <!-- Button 3 -->
+                    <button class="gesture-btn w-full p-6 bg-gradient-to-b from-slate-800 to-slate-900 rounded-2xl border border-slate-700 text-left flex flex-col justify-between min-h-[12rem] group">
+                        <div class="text-emerald-400 text-3xl mb-4"><i class="fa-solid fa-circle-check"></i></div>
+                        <div>
+                            <h3 class="font-bold text-lg mb-1 text-slate-200 group-hover:text-emerald-300">Best Practice Questions</h3>
+                            <p class="text-xs text-slate-400 leading-normal">Handpicked challenging questions for perfection.</p>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: DONATION -->
+        <section id="donation" class="py-20 px-4 text-center max-w-4xl mx-auto flex flex-col justify-center items-center">
+            <div class="bg-gradient-to-br from-indigo-950/60 to-slate-900 border border-indigo-500/10 p-6 sm:p-10 rounded-3xl shadow-2xl w-full max-w-2xl">
+                <div class="text-amber-400 text-4xl mb-4"><i class="fa-solid fa-heart"></i></div>
+                <h2 class="text-2xl font-bold mb-3">Support My Work</h2>
+                <p class="text-slate-400 mb-6 text-sm leading-relaxed max-w-md mx-auto">
+                    If these free resources helped you in your preparation, consider buying me a coffee to keep this platform alive and ad-free!
+                </p>
+                <button class="gesture-btn min-h-[48px] w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-extrabold rounded-xl shadow-lg shadow-orange-500/10">
+                    <i class="fa-solid fa-coffee mr-2"></i> Donate Now
+                </button>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="border-t border-slate-800/60 py-8 text-center text-xs sm:text-sm text-slate-500 px-4">
+            <p>&copy; 2026 Swarnava Ganguly. All rights reserved &reg;.</p>
+        </footer>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- DEDICATED CONTACT PAGE (PAGE 2)           -->
+    <!-- ========================================== -->
+    <div id="contact-page" class="hidden min-h-[calc(100vh-4rem)] pt-20 px-4 max-w-lg mx-auto flex flex-col justify-center pb-12">
+        <div class="bg-slate-800/40 backdrop-blur-sm border border-slate-700/60 p-6 sm:p-8 rounded-2xl shadow-2xl">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl sm:text-3xl font-bold mb-2 text-indigo-400">Get In Touch</h2>
+                <p class="text-slate-400 text-xs sm:text-sm">Have a question or want to work together? Drop a message!</p>
+            </div>
+            
+            <form onsubmit="event.preventDefault(); alert('Message sent successfully!');" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Name</label>
+                    <input type="text" required class="w-full bg-slate-900/80 border border-slate-700 rounded-xl p-3 text-slate-200 focus:outline-none focus:border-indigo-500 transition-colors" placeholder="John Doe">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Email Address</label>
+                    <input type="email" required class="w-full bg-slate-900/80 border border-slate-700 rounded-xl p-3 text-slate-200 focus:outline-none focus:border-indigo-500 transition-colors" placeholder="john@example.com">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Message</label>
+                    <textarea required rows="4" class="w-full bg-slate-900/80 border border-slate-700 rounded-xl p-3 text-slate-200 focus:outline-none focus:border-indigo-500 transition-colors" placeholder="Your message here..."></textarea>
+                </div>
+                
+                <button type="submit" class="gesture-btn min-h-[48px] w-full py-3 bg-indigo-600 text-white font-bold rounded-xl shadow-lg mt-2 flex items-center justify-center gap-2">
+                    Send Message <i class="fa-solid fa-paper-plane text-xs"></i>
+                </button>
+            </form>
+            
+            <button onclick="showPage('main')" class="mt-5 text-xs text-slate-500 hover:text-slate-400 underline block text-center mx-auto min-h-[32px]">
+                Go back to home page
+            </button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS FOR INTERACTION AND ROUTING -->
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', toggleMobileMenu);
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+            const icon = menuBtn.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.className = 'fa-solid fa-bars';
+            } else {
+                icon.className = 'fa-solid fa-xmark';
+            }
+        }
+
+        function showPage(pageId) {
+            const mainPage = document.getElementById('main-page');
+            const contactPage = document.getElementById('contact-page');
+
+            if (pageId === 'main') {
+                mainPage.classList.remove('hidden');
+                contactPage.classList.add('hidden');
+            } else if (pageId === 'contact') {
+                mainPage.classList.add('hidden');
+                contactPage.classList.remove('hidden');
+                window.scrollTo(0, 0);
+            }
+        }
+    </script>
+</body>
+</html>
