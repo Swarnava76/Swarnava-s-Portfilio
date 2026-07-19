@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
+    <title>My Portfolio & Technical Prep Hub</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Floating animation for desktop/mobile */
+        /* Floating animation for profile picture */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
@@ -17,7 +17,7 @@
         .animate-float {
             animation: float 3s ease-in-out infinite;
         }
-        /* Desktop Hover + Mobile Touch Animations */
+        /* Global Button Gestures (Windows Hover + Mobile Touch) */
         .gesture-btn {
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             -webkit-tap-highlight-color: transparent;
@@ -27,8 +27,38 @@
                 transform: translateY(-4px) scale(1.02);
                 box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25);
             }
+            .topic-btn:hover {
+                background-color: #4f46e5;
+                border-color: #6366f1;
+                transform: scale(1.03);
+                color: #ffffff;
+            }
+            .exam-btn:hover {
+                background-color: #06b6d4;
+                border-color: #22d3ee;
+                transform: translateY(-2px);
+                color: #0f172a;
+            }
+            .ese-btn:hover {
+                background-color: #d97706;
+                border-color: #fbbf24;
+                transform: translateY(-2px);
+                color: #0f172a;
+            }
+            .rrb-btn:hover {
+                background-color: #059669;
+                border-color: #34d399;
+                transform: translateY(-2px);
+                color: #ffffff;
+            }
+            .psu-btn:hover {
+                background-color: #7c3aed;
+                border-color: #a78bfa;
+                transform: translateY(-2px);
+                color: #ffffff;
+            }
         }
-        .gesture-btn:active {
+        .gesture-btn:active, .topic-btn:active, .exam-btn:active, .ese-btn:active, .rrb-btn:active, .psu-btn:active {
             transform: translateY(-1px) scale(0.97);
         }
     </style>
@@ -37,120 +67,157 @@
 
     <!-- NAVIGATION BAR -->
     <nav class="fixed top-0 left-0 w-full bg-slate-900/90 backdrop-blur-md z-50 border-b border-slate-800">
-        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-            <a href="#" onclick="showPage('main'); window.scrollTo(0,0)" class="text-xl font-bold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Hello, I'M Swarnava Ganguly</a>
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <a href="#" onclick="showPage('main'); window.scrollTo(0,0)" class="text-xl font-bold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Hello, I'm Swarnava Ganguly </a>
             
-            <!-- Desktop Links (Hidden on Mobile) -->
-            <div class="hidden md:flex space-x-8 text-sm font-medium">
-                <a href="#home" onclick="showPage('main')" class="hover:text-indigo-400 transition-colors">Home</a>
-                <a href="#preparation" onclick="showPage('main')" class="hover:text-indigo-400 transition-colors">Resources</a>
-                <a href="#donation" onclick="showPage('main')" class="hover:text-indigo-400 transition-colors">Donate</a>
-                <a href="#contact-page" onclick="showPage('contact')" class="text-indigo-400 font-semibold hover:text-indigo-300 transition-colors cursor-pointer">Contact Me</a>
+            <!-- Desktop Links -->
+            <div class="hidden lg:flex space-x-4 text-xs font-medium">
+                <a href="#home" onclick="showPage('main')" class="hover:text-indigo-400 transition-colors pt-1">Home</a>
+                <a href="#preparation" onclick="showPage('main')" class="hover:text-indigo-400 transition-colors pt-1">Resources</a>
+                <a href="#donation" onclick="showPage('main')" class="hover:text-indigo-400 transition-colors pt-1">Donate</a>
+                <a href="#" onclick="showPage('ece-notes')" class="text-indigo-400 font-semibold hover:text-indigo-300 transition-colors cursor-pointer pt-1">ECE Notes</a>
+                <a href="#" onclick="showPage('pyq-hub')" class="text-cyan-400 font-semibold hover:text-cyan-300 transition-colors cursor-pointer pt-1">GATE PYQs</a>
+                <a href="#" onclick="showPage('ese-hub')" class="text-amber-400 font-semibold hover:text-amber-300 transition-colors cursor-pointer pt-1">UPSC ESE</a>
+                <a href="#" onclick="showPage('rrb-hub')" class="text-emerald-400 font-semibold hover:text-emerald-300 transition-colors cursor-pointer pt-1">RRB JE</a>
+                <a href="#" onclick="showPage('psu-hub')" class="text-purple-400 font-semibold hover:text-purple-300 transition-colors cursor-pointer pt-1">PSU Hub</a>
+                <a href="#" onclick="showPage('contact')" class="text-indigo-400 font-semibold hover:text-indigo-300 transition-colors cursor-pointer bg-slate-800 px-2.5 py-1 rounded-lg border border-slate-700">Contact Me</a>
             </div>
 
-            <!-- Hamburger Button (Visible on Mobile Only) -->
-            <button id="menu-btn" class="md:hidden w-10 h-10 flex items-center justify-center text-xl text-slate-300 focus:outline-none" aria-label="Toggle Menu">
+            <!-- Hamburger Menu Button (Mobile) -->
+            <button id="menu-btn" class="lg:hidden w-10 h-10 flex items-center justify-center text-xl text-slate-300 focus:outline-none" aria-label="Toggle Menu">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>
 
-        <!-- Mobile Dropdown Menu (Hidden by default) -->
-        <div id="mobile-menu" class="hidden md:hidden bg-slate-900 border-b border-slate-800 px-4 py-4 space-y-3 shadow-xl">
-            <a href="#home" onclick="toggleMobileMenu(); showPage('main')" class="block py-2 px-3 rounded-lg hover:bg-slate-800 transition-colors">Home</a>
-            <a href="#preparation" onclick="toggleMobileMenu(); showPage('main')" class="block py-2 px-3 rounded-lg hover:bg-slate-800 transition-colors">Resources</a>
-            <a href="#donation" onclick="toggleMobileMenu(); showPage('main')" class="block py-2 px-3 rounded-lg hover:bg-slate-800 transition-colors">Donate</a>
-            <a href="#contact-page" onclick="toggleMobileMenu(); showPage('contact')" class="block py-2 px-3 rounded-lg bg-indigo-600 text-white font-medium text-center transition-colors">Contact Me</a>
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-slate-900 border-b border-slate-800 px-4 py-4 space-y-2 shadow-xl">
+            <a href="#home" onclick="toggleMobileMenu(); showPage('main')" class="block py-2 px-3 rounded-lg hover:bg-slate-800 transition-colors text-sm">Home</a>
+            <a href="#preparation" onclick="toggleMobileMenu(); showPage('main')" class="block py-2 px-3 rounded-lg hover:bg-slate-800 transition-colors text-sm">Resources</a>
+            <a href="#" onclick="toggleMobileMenu(); showPage('ece-notes')" class="block py-2 px-3 rounded-lg hover:bg-slate-800 text-indigo-400 transition-colors text-sm">ECE Notes</a>
+            <a href="#" onclick="toggleMobileMenu(); showPage('pyq-hub')" class="block py-2 px-3 rounded-lg hover:bg-slate-800 text-cyan-400 transition-colors text-sm">GATE PYQs</a>
+            <a href="#" onclick="toggleMobileMenu(); showPage('ese-hub')" class="block py-2 px-3 rounded-lg hover:bg-slate-800 text-amber-400 transition-colors text-sm">UPSC ESE Papers</a>
+            <a href="#" onclick="toggleMobileMenu(); showPage('rrb-hub')" class="block py-2 px-3 rounded-lg hover:bg-slate-800 text-emerald-400 transition-colors text-sm">RRB JE Papers</a>
+            <a href="#" onclick="toggleMobileMenu(); showPage('psu-hub')" class="block py-2 px-3 rounded-lg hover:bg-slate-800 text-purple-400 transition-colors text-sm">PSU Papers</a>
+            <a href="#donation" onclick="toggleMobileMenu(); showPage('main')" class="block py-2 px-3 rounded-lg hover:bg-slate-800 transition-colors text-sm">Donate</a>
+            <a href="#" onclick="toggleMobileMenu(); showPage('contact')" class="block py-2 px-3 rounded-lg bg-indigo-600 text-white font-medium text-center text-sm">Contact Me</a>
         </div>
     </nav>
 
     <!-- ========================================== -->
-    <!-- MULTI-SECTION SCROLLING PAGE (PAGE 1)     -->
+    <!-- MAIN SCROLLING PAGE (PAGE 1)               -->
     <!-- ========================================== -->
     <div id="main-page" class="pt-16">
         
         <!-- SECTION 1: HOME & ABOUT -->
         <section id="home" class="min-h-[calc(100vh-4rem)] flex flex-col justify-center items-center px-4 sm:px-6 max-w-6xl mx-auto py-12 md:py-24">
             <div class="flex flex-col md:flex-row items-center gap-8 md:gap-16 w-full">
-                
-                <!-- Profile Image container -->
                 <div class="w-full md:w-2/5 flex justify-center">
                     <div class="animate-float relative w-48 h-48 sm:w-64 sm:h-64 rounded-full p-1 bg-gradient-to-tr from-indigo-500 to-cyan-500 shadow-xl shadow-indigo-500/10">
                         <img src="mypic.jpeg" alt="Profile Picture" class="w-full h-full object-cover rounded-full border-4 border-slate-900">
                     </div>
                 </div>
                 
-                <!-- Content text block -->
                 <div class="w-full md:w-3/5 text-center md:text-left">
                     <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">Hi, I'm <span class="text-indigo-400">Swarnava Ganguly</span></h1>
                     <p class="text-slate-400 text-base sm:text-lg mb-6 leading-relaxed max-w-2xl mx-auto md:mx-0">
-                        🎓 Electronics and Communication Engineering (ECE) Student at SVU, Barrackpore.Passionate about electronics, communication systems, embedded technology, and innovation. Dedicated to continuous learning, problem-solving, and developing practical engineering skills. Always eager to explore new technologies, work on impactful projects, and build a successful career in the field of engineering.
-
-"Learning today, innovating tomorrow." 🚀
+                        Electronics & Communication Engineering Student from Swami Vivekananda University. Passionate about Embedded Systems, IoT, PCB Design, and Electronics. I enjoy building innovative projects and continuously learning new technologies.
                     </p>
                     
-                    <!-- Row 1: Credentials (CV & Resume Buttons) -->
+                    <!-- CV/Resume Row -->
                     <div class="flex flex-col sm:flex-row justify-center md:justify-start gap-4 mb-4">
-                        <a href="#" class="gesture-btn min-h-[48px] px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-xl shadow-lg flex items-center justify-center gap-2">
+                        <a href="#" onclick="alert('CV link coming soon!')" class="gesture-btn min-h-[48px] px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-xl shadow-lg flex items-center justify-center gap-2">
                             <i class="fa-solid fa-file-arrow-down"></i> Download CV
                         </a>
-                        <a href="#" class="gesture-btn min-h-[48px] px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium rounded-xl border border-slate-700 flex items-center justify-center gap-2">
+                        <a href="#" onclick="alert('Resume link coming soon!')" class="gesture-btn min-h-[48px] px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium rounded-xl border border-slate-700 flex items-center justify-center gap-2">
                             <i class="fa-solid fa-briefcase"></i> View Resume
                         </a>
                     </div>
 
-                    <!-- Row 2: Showcases (Projects & Innovation Buttons) -->
+                    <!-- Projects/Innovations Row -->
                     <div class="flex flex-col sm:flex-row justify-center md:justify-start gap-4 mb-8">
-                        <a href="#" class="gesture-btn min-h-[48px] px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-medium rounded-xl shadow-md flex items-center justify-center gap-2">
+                        <a href="#" onclick="alert('Projects repository coming soon!')" class="gesture-btn min-h-[48px] px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-medium rounded-xl shadow-md flex items-center justify-center gap-2">
                             <i class="fa-solid fa-diagram-project"></i> My Projects
                         </a>
-                        <a href="#" class="gesture-btn min-h-[48px] px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-medium rounded-xl shadow-md flex items-center justify-center gap-2">
+                        <a href="#" onclick="alert('Future Innovations deck coming soon!')" class="gesture-btn min-h-[48px] px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-medium rounded-xl shadow-md flex items-center justify-center gap-2">
                             <i class="fa-solid fa-lightbulb"></i> Future Innovations
+                        </a>
+                         <a href="#" onclick="alert('Certifications module coming soon!')" class="gesture-btn min-h-[48px] px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-medium rounded-xl shadow-md flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-certificate"></i>Certifications
                         </a>
                     </div>
                     
                     <!-- Social Icons -->
                     <div class="flex justify-center md:justify-start gap-4">
-                        <a href="https://www.instagram.com/swarnava.ganguly/" class="gesture-btn w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-xl text-pink-500" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="https://www.facebook.com/profile.php?id=61577167967509" class="gesture-btn w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-xl text-blue-600" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="https://github.com/Swarnava76" class="gesture-btn w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-xl text-white" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/swarnava-ganguly-b035b3319/" class="gesture-btn w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-xl text-blue-400" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/swarnava.ganguly/" target="_blank" class="gesture-btn w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-xl text-pink-500"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61577167967509" target="_blank" class="gesture-btn w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-xl text-blue-600"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="https://github.com/Swarnava76" target="_blank" class="gesture-btn w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-xl text-white"><i class="fa-brands fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/swarnava-ganguly-b035b3319/" target="_blank" class="gesture-btn w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-xl text-blue-400"><i class="fa-brands fa-linkedin"></i></a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 2: PREPARATION FOR FREE -->
+        <!-- SECTION 2: PREPARATION FOR FREE (UPDATED COMPREHENSIVE HUB GRID) -->
         <section id="preparation" class="min-h-screen bg-slate-800/30 flex flex-col justify-center items-center px-4 sm:px-6 py-20 border-t border-b border-slate-800">
-            <div class="max-w-5xl w-full text-center">
+            <div class="max-w-6xl w-full text-center">
                 <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 tracking-tight">Preparation for Free</h2>
                 <p class="text-slate-400 text-sm sm:text-base mb-12 max-w-xl mx-auto">Get instant access to curated structural resources optimized for exam cracking.</p>
                 
-                <!-- Dynamic Resource Layout -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-                    <!-- Button 1 -->
-                    <button class="gesture-btn w-full p-6 bg-gradient-to-b from-slate-800 to-slate-900 rounded-2xl border border-slate-700 text-left flex flex-col justify-between min-h-[12rem] group">
-                        <div class="text-indigo-400 text-3xl mb-4"><i class="fa-solid fa-book-open"></i></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                    <!-- CARD 1: ECE NOTES -->
+                    <button onclick="showPage('ece-notes')" class="gesture-btn w-full p-6 bg-gradient-to-b from-slate-800 to-slate-900 rounded-2xl border border-slate-700 text-left flex flex-col justify-between min-h-[12rem] group cursor-pointer shadow-xl">
+                        <div class="text-indigo-400 text-3xl mb-4"><i class="fa-solid fa-folder-open"></i></div>
                         <div>
-                            <h3 class="font-bold text-lg mb-1 text-slate-200 group-hover:text-indigo-300">ECE Notes</h3>
-                            <p class="text-xs text-slate-400 leading-normal">Comprehensive syllabus notes tailored for the GATE Exam.</p>
+                            <h3 class="font-bold text-lg mb-1 text-slate-200 group-hover:text-indigo-300">ECE Notes Dashboard</h3>
+                            <p class="text-xs text-slate-400 leading-normal">Access your structured core topic-wise module files.</p>
                         </div>
                     </button>
 
-                    <!-- Button 2 -->
-                    <button class="gesture-btn w-full p-6 bg-gradient-to-b from-slate-800 to-slate-900 rounded-2xl border border-slate-700 text-left flex flex-col justify-between min-h-[12rem] group">
+                    <!-- CARD 2: GATE PREVIOUS YEAR PAPERS -->
+                    <button onclick="showPage('pyq-hub')" class="gesture-btn w-full p-6 bg-gradient-to-b from-cyan-900/40 to-slate-900 rounded-2xl border border-cyan-500/40 text-left flex flex-col justify-between min-h-[12rem] group cursor-pointer shadow-xl shadow-cyan-950/50">
                         <div class="text-cyan-400 text-3xl mb-4"><i class="fa-solid fa-clock-rotate-left"></i></div>
                         <div>
-                            <h3 class="font-bold text-lg mb-1 text-slate-200 group-hover:text-cyan-300">Previous Year Questions</h3>
-                            <p class="text-xs text-slate-400 leading-normal">Step-by-step solved papers from past GATE exams.</p>
+                            <div class="flex items-center justify-between text-cyan-300 font-bold text-lg mb-1">
+                                <h3>GATE PYQ Portal</h3>
+                                <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
+                            </div>
+                            <p class="text-xs text-slate-400 leading-normal">GATE exam panels covering 2010 up to 2026.</p>
                         </div>
                     </button>
 
-                    <!-- Button 3 -->
-                    <button class="gesture-btn w-full p-6 bg-gradient-to-b from-slate-800 to-slate-900 rounded-2xl border border-slate-700 text-left flex flex-col justify-between min-h-[12rem] group">
-                        <div class="text-emerald-400 text-3xl mb-4"><i class="fa-solid fa-circle-check"></i></div>
+                    <!-- CARD 3: UPSC ESE YEAR-WISE PAPERS -->
+                    <button onclick="showPage('ese-hub')" class="gesture-btn w-full p-6 bg-gradient-to-b from-amber-950/40 to-slate-900 rounded-2xl border border-amber-500/40 text-left flex flex-col justify-between min-h-[12rem] group cursor-pointer shadow-xl shadow-amber-950/50">
+                        <div class="text-amber-400 text-3xl mb-4"><i class="fa-solid fa-building-columns"></i></div>
                         <div>
-                            <h3 class="font-bold text-lg mb-1 text-slate-200 group-hover:text-emerald-300">Best Practice Questions</h3>
-                            <p class="text-xs text-slate-400 leading-normal">Handpicked challenging questions for perfection.</p>
+                            <div class="flex items-center justify-between text-amber-300 font-bold text-lg mb-1">
+                                <h3>UPSC ESE Hub</h3>
+                                <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
+                            </div>
+                            <p class="text-xs text-slate-400 leading-normal">Year-wise Engineering Services Examination Objective papers 2015-2026.</p>
+                        </div>
+                    </button>
+
+                    <!-- CARD 4: RRB JE YEAR-WISE PAPERS -->
+                    <button onclick="showPage('rrb-hub')" class="gesture-btn w-full p-6 bg-gradient-to-b from-emerald-950/40 to-slate-900 rounded-2xl border border-emerald-500/40 text-left flex flex-col justify-between min-h-[12rem] group cursor-pointer shadow-xl shadow-emerald-950/50">
+                        <div class="text-emerald-400 text-3xl mb-4"><i class="fa-solid fa-train"></i></div>
+                        <div>
+                            <div class="flex items-center justify-between text-emerald-300 font-bold text-lg mb-1">
+                                <h3>RRB JE Technical</h3>
+                                <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
+                            </div>
+                            <p class="text-xs text-slate-400 leading-normal">Year-wise Junior Engineer Technical Papers compilation 2015-2026.</p>
+                        </div>
+                    </button>
+
+                    <!-- CARD 5: PSU YEAR-WISE PAPERS -->
+                    <button onclick="showPage('psu-hub')" class="gesture-btn w-full p-6 bg-gradient-to-b from-purple-950/40 to-slate-900 rounded-2xl border border-purple-500/40 text-left flex flex-col justify-between min-h-[12rem] group cursor-pointer shadow-xl shadow-purple-950/50 md:col-span-1 lg:col-span-1">
+                        <div class="text-purple-400 text-3xl mb-4"><i class="fa-solid fa-atom"></i></div>
+                        <div>
+                            <div class="flex items-center justify-between text-purple-300 font-bold text-lg mb-1">
+                                <h3>PSU Specialized Hub</h3>
+                                <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
+                            </div>
+                            <p class="text-xs text-slate-400 leading-normal">Year-wise specialized public sector papers (ISRO / BARC / DRDO) 2015-2026.</p>
                         </div>
                     </button>
                 </div>
@@ -163,10 +230,10 @@
                 <div class="text-amber-400 text-4xl mb-4"><i class="fa-solid fa-heart"></i></div>
                 <h2 class="text-2xl font-bold mb-3">Support My Work</h2>
                 <p class="text-slate-400 mb-6 text-sm leading-relaxed max-w-md mx-auto">
-                    If these free resources helped you in your preparation, consider buying me a coffee to keep this platform alive and ad-free!
+                    If these free resources helped you in your preparation, consider supporting to keep this platform alive and completely ad-free!
                 </p>
-                <button class="gesture-btn min-h-[48px] w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-extrabold rounded-xl shadow-lg shadow-orange-500/10">
-                    <i class="fa-solid fa-coffee mr-2"></i> Donate Now
+                <button onclick="alert('Payment processing system coming soon!')" class="gesture-btn min-h-[48px] w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-extrabold rounded-xl shadow-lg shadow-orange-500/10">
+                    <i class="fa-solid fa-coffee mr-2"></i> Support Now
                 </button>
             </div>
         </section>
@@ -175,72 +242,430 @@
         <footer class="border-t border-slate-800/60 py-8 text-center text-xs sm:text-sm text-slate-500 px-4">
             <p>&copy; 2026 Swarnava Ganguly. All rights reserved &reg;.</p>
         </footer>
-
     </div>
 
-    <!-- ========================================== -->
-    <!-- DEDICATED CONTACT PAGE (PAGE 2)           -->
-    <!-- ========================================== -->
-    <div id="contact-page" class="hidden min-h-[calc(100vh-4rem)] pt-20 px-4 max-w-lg mx-auto flex flex-col justify-center pb-12">
-        <div class="bg-slate-800/40 backdrop-blur-sm border border-slate-700/60 p-6 sm:p-8 rounded-2xl shadow-2xl">
-            <div class="text-center mb-6">
-                <h2 class="text-2xl sm:text-3xl font-bold mb-2 text-indigo-400">Get In Touch</h2>
-                <p class="text-slate-400 text-xs sm:text-sm">Have a question or want to work together? Drop a message!</p>
+    <!-- =================================================== -->
+    <!-- DEDICATED PAGE: ECE SYLLABUS TOPIC-WISE HUB        -->
+    <!-- =================================================== -->
+    <div id="ece-notes-page" class="hidden min-h-[calc(100vh-4rem)] pt-24 px-4 sm:px-6 max-w-6xl mx-auto pb-16">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 border-b border-slate-800 pb-5">
+            <div>
+                <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Electronics & Communication Engineering Hub</h1>
+                <p class="text-xs sm:text-sm text-slate-400 mt-1">Click any dedicated topic button below to access your structural target study files.</p>
             </div>
-            
-            <form onsubmit="event.preventDefault(); alert('Message sent successfully!');" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Name</label>
-                    <input type="text" required class="w-full bg-slate-900/80 border border-slate-700 rounded-xl p-3 text-slate-200 focus:outline-none focus:border-indigo-500 transition-colors" placeholder="John Doe">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Email Address</label>
-                    <input type="email" required class="w-full bg-slate-900/80 border border-slate-700 rounded-xl p-3 text-slate-200 focus:outline-none focus:border-indigo-500 transition-colors" placeholder="john@example.com">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Message</label>
-                    <textarea required rows="4" class="w-full bg-slate-900/80 border border-slate-700 rounded-xl p-3 text-slate-200 focus:outline-none focus:border-indigo-500 transition-colors" placeholder="Your message here..."></textarea>
-                </div>
-                
-                <button type="submit" class="gesture-btn min-h-[48px] w-full py-3 bg-indigo-600 text-white font-bold rounded-xl shadow-lg mt-2 flex items-center justify-center gap-2">
-                    Send Message <i class="fa-solid fa-paper-plane text-xs"></i>
-                </button>
-            </form>
-            
-            <button onclick="showPage('main')" class="mt-5 text-xs text-slate-500 hover:text-slate-400 underline block text-center mx-auto min-h-[32px]">
-                Go back to home page
+            <button onclick="showPage('main')" class="gesture-btn px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs sm:text-sm font-semibold self-start flex items-center gap-2 border border-slate-700">
+                <i class="fa-solid fa-arrow-left"></i> Back to Home
             </button>
+        </div>
+
+        <!-- 8 Core Units Layout Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Section 1 -->
+            <div class="bg-slate-800/30 border border-slate-800 p-6 rounded-2xl shadow-xl">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400 block mb-1">Section 1</span>
+                <h2 class="text-xl font-extrabold text-slate-200 mb-4">Engineering Mathematics</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <button onclick="accessNotes('Linear Algebra')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-circle-nodes text-indigo-500"></i> Linear Algebra</button>
+                    <button onclick="accessNotes('Differential Equations')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-wave-square text-indigo-500"></i> Differential Eq.</button>
+                    <button onclick="accessNotes('Complex Analysis')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-calculator text-indigo-500"></i> Complex Analysis</button>
+                    <button onclick="accessNotes('Calculus')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-arrow-trend-up text-indigo-500"></i> Calculus</button>
+                    <button onclick="accessNotes('Vector Analysis')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-compass text-indigo-500"></i> Vector Analysis</button>
+                    <button onclick="accessNotes('Probability and Statistics')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-chart-simple text-indigo-500"></i> Prob & Stats</button>
+                </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="bg-slate-800/30 border border-slate-800 p-6 rounded-2xl shadow-xl">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400 block mb-1">Section 2</span>
+                <h2 class="text-xl font-extrabold text-slate-200 mb-4">Networks, Signals & Systems</h2>
+                <div class="flex flex-col gap-3">
+                    <button onclick="accessNotes('Circuit Analysis')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-microchip text-indigo-500"></i> Circuit Analysis</button>
+                    <button onclick="accessNotes('Continuous-time Signals')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-bolt-lightning text-indigo-500"></i> Continuous-time Signals</button>
+                    <button onclick="accessNotes('Discrete-time Signals')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-ellipsis text-indigo-500"></i> Discrete-time Signals</button>
+                </div>
+            </div>
+
+            <!-- Section 3 -->
+            <div class="bg-slate-800/30 border border-slate-800 p-6 rounded-2xl shadow-xl">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400 block mb-1">Section 3</span>
+                <h2 class="text-xl font-extrabold text-slate-200 mb-4">Electronic Devices</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <button onclick="accessNotes('Intrinsic & Extrinsic Energy Bands')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-layer-group text-indigo-500"></i> Intrinsic / Extrinsic Bands</button>
+                    <button onclick="accessNotes('Carrier Concentration & Bandgap')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-atom text-indigo-500"></i> Concentration & Bandgap</button>
+                    <button onclick="accessNotes('Carrier Transport')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-truck-ramp-box text-indigo-500"></i> Carrier Transport</button>
+                    <button onclick="accessNotes('P-N Junction & Zener Diode')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-code-merge text-indigo-500"></i> P-N Junction / Zener</button>
+                    <button onclick="accessNotes('BJT & MOS Capacitor')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-battery-half text-indigo-500"></i> BJT & MOS Capacitor</button>
+                    <button onclick="accessNotes('MOSFET, LED, Photodiode & Solar Cell')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-lightbulb text-indigo-500"></i> MOSFET & Opto Devices</button>
+                </div>
+            </div>
+
+            <!-- Section 4 -->
+            <div class="bg-slate-800/30 border border-slate-800 p-6 rounded-2xl shadow-xl">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400 block mb-1">Section 4</span>
+                <h2 class="text-xl font-extrabold text-slate-200 mb-4">Analog Circuits</h2>
+                <div class="flex flex-col gap-3">
+                    <button onclick="accessNotes('Diode Circuits')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-repeat text-indigo-500"></i> Diode Circuits</button>
+                    <button onclick="accessNotes('BJT & MOSFET Amplifiers')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-volume-high text-indigo-500"></i> BJT & MOSFET Amplifiers</button>
+                    <button onclick="accessNotes('Op-Amp Circuits')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-square-plus text-indigo-500"></i> OP-Amp Circuits</button>
+                </div>
+            </div>
+
+            <!-- Section 5 -->
+            <div class="bg-slate-800/30 border border-slate-800 p-6 rounded-2xl shadow-xl">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400 block mb-1">Section 5</span>
+                <h2 class="text-xl font-extrabold text-slate-200 mb-4">Digital Circuits</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <button onclick="accessNotes('Number Representations')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-binary text-indigo-500"></i> Number Rep.</button>
+                    <button onclick="accessNotes('Sequential Circuits')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-spinner text-indigo-500"></i> Sequential Circuits</button>
+                    <button onclick="accessNotes('Data Converters')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-shuffle text-indigo-500"></i> Data Converters</button>
+                    <button onclick="accessNotes('Semiconductor Memories')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-memory text-indigo-500"></i> Memories</button>
+                    <button onclick="accessNotes('Computer Organization')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2 sm:col-span-2"><i class="fa-solid fa-server text-indigo-500"></i> Computer Organization</button>
+                </div>
+            </div>
+
+            <!-- Section 6 -->
+            <div class="bg-slate-800/30 border border-slate-800 p-6 rounded-2xl shadow-xl">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400 block mb-1">Section 6</span>
+                <h2 class="text-xl font-extrabold text-slate-200 mb-4">Control Systems</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <button onclick="accessNotes('Basic Components & Feedback Principles')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-sliders text-indigo-500"></i> Basic & Feedback</button>
+                    <button onclick="accessNotes('Transfer Function & SFG')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-network-wired text-indigo-500"></i> Transfer Func & SFG</button>
+                    <button onclick="accessNotes('Transient & Steady-State LTI Analysis')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-chart-line text-indigo-500"></i> LTI Transient Analysis</button>
+                    <button onclick="accessNotes('R-H & Nyquist Stability Criteria')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-shield-halved text-indigo-500"></i> R-H / Nyquist Stability</button>
+                    <button onclick="accessNotes('Bode & Root Locus Plots')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-bezier-curve text-indigo-500"></i> Bode & Root Locus</button>
+                    <button onclick="accessNotes('Lag, Lead Compensation & State Variable Solutions')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-clock text-indigo-500"></i> Lag-Lead & States</button>
+                </div>
+            </div>
+
+            <!-- Section 7 -->
+            <div class="bg-slate-800/30 border border-slate-800 p-6 rounded-2xl shadow-xl">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400 block mb-1">Section 7</span>
+                <h2 class="text-xl font-extrabold text-slate-200 mb-4">Communications</h2>
+                <div class="flex flex-col gap-3">
+                    <button onclick="accessNotes('Random Processes')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-shuffle text-indigo-500"></i> Random Processes</button>
+                    <button onclick="accessNotes('Analog Communication')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-radio text-indigo-500"></i> Analog Communication</button>
+                    <button onclick="accessNotes('Information Theory')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-circle-info text-indigo-500"></i> Information Theory</button>
+                </div>
+            </div>
+
+            <!-- Section 8 -->
+            <div class="bg-slate-800/30 border border-slate-800 p-6 rounded-2xl shadow-xl">
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-400 block mb-1">Section 8</span>
+                <h2 class="text-xl font-extrabold text-slate-200 mb-4">Electromagnetics</h2>
+                <div class="flex flex-col gap-3">
+                    <button onclick="accessNotes('Maxwell\'s Equations')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-circle-h text-indigo-500"></i> Maxwell's Equations</button>
+                    <button onclick="accessNotes('Plane Waves and Properties')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-globe text-indigo-500"></i> Plane Waves & Properties</button>
+                    <button onclick="accessNotes('Transmission Lines')" class="topic-btn text-left p-3 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs sm:text-sm text-slate-300 font-medium transition-all duration-150 flex items-center gap-2"><i class="fa-solid fa-share-nodes text-indigo-500"></i> Transmission Lines</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- SCRIPTS FOR INTERACTION AND ROUTING -->
+    <!-- =================================================== -->
+    <!-- DEDICATED PAGE: GATE PYQ HUB                       -->
+    <!-- =================================================== -->
+    <div id="pyq-hub-page" class="hidden min-h-[calc(100vh-4rem)] pt-24 px-4 sm:px-6 max-w-6xl mx-auto pb-16">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 border-b border-slate-800 pb-5">
+            <div>
+                <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">GATE Previous Years Papers Hub</h1>
+                <p class="text-xs sm:text-sm text-slate-400 mt-1">Access verified structural exam papers covering 2010 up to 2026.</p>
+            </div>
+            <button onclick="showPage('main')" class="gesture-btn px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs sm:text-sm font-semibold self-start flex items-center gap-2 border border-slate-700">
+                <i class="fa-solid fa-arrow-left"></i> Back to Home
+            </button>
+        </div>
+
+        <div class="bg-slate-800/30 border border-slate-800 p-6 rounded-2xl shadow-xl max-w-4xl mx-auto">
+            <h2 class="text-xl font-extrabold text-slate-200 mb-6 flex items-center gap-2">
+                <i class="fa-solid fa-graduation-cap text-cyan-400"></i> Select Exam Year
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                <button onclick="accessPYQ('2026')" class="exam-btn text-center p-4 rounded-xl bg-slate-900/60 border border-cyan-500/30 text-sm font-bold transition-all duration-150 text-cyan-400">GATE 2026</button>
+                <button onclick="accessPYQ('2025')" class="exam-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">GATE 2025</button>
+                <button onclick="accessPYQ('2024')" class="exam-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">GATE 2024</button>
+                <button onclick="accessPYQ('2023')" class="exam-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">GATE 2023</button>
+                <button onclick="accessPYQ('2022')" class="exam-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">GATE 2022</button>
+                <button onclick="accessPYQ('2021')" class="exam-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">GATE 2021</button>
+                <button onclick="accessPYQ('2020')" class="exam-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">GATE 2020</button>
+                <button onclick="accessPYQ('2019')" class="exam-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">GATE 2019</button>
+                <button onclick="accessPYQ('2018')" class="exam-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">GATE 2018</button>
+                <button onclick="accessPYQ('2017')" class="exam-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">GATE 2017</button>
+                <button onclick="accessPYQ('2016')" class="exam-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">GATE 2016</button>
+                <button onclick="accessPYQ('2015')" class="exam-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">GATE 2015</button>
+                <button onclick="accessPYQ('2014')" class="exam-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">GATE 2014</button>
+                <button onclick="accessPYQ('2013')" class="exam-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">GATE 2013</button>
+                <button onclick="accessPYQ('2012')" class="exam-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">GATE 2012</button>
+                <button onclick="accessPYQ('2011')" class="exam-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">GATE 2011</button>
+                <button onclick="accessPYQ('2010')" class="exam-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300 sm:col-span-1 md:col-span-4">GATE 2010</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =================================================== -->
+    <!-- NEW DEDICATED PAGE: UPSC ESE YEAR-WISE HUB         -->
+    <!-- =================================================== -->
+    <div id="ese-hub-page" class="hidden min-h-[calc(100vh-4rem)] pt-24 px-4 sm:px-6 max-w-6xl mx-auto pb-16">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 border-b border-slate-800 pb-5">
+            <div>
+                <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400">UPSC Engineering Services Exam Hub</h1>
+                <p class="text-xs sm:text-sm text-slate-400 mt-1">Access structural ESE Objective and Conventional sets compiled from 2015 to 2026.</p>
+            </div>
+            <button onclick="showPage('main')" class="gesture-btn px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs sm:text-sm font-semibold self-start flex items-center gap-2 border border-slate-700">
+                <i class="fa-solid fa-arrow-left"></i> Back to Home
+            </button>
+        </div>
+
+        <div class="bg-slate-800/30 border border-slate-800 p-6 rounded-2xl shadow-xl max-w-4xl mx-auto">
+            <h2 class="text-xl font-extrabold text-slate-200 mb-6 flex items-center gap-2">
+                <i class="fa-solid fa-building-columns text-amber-400"></i> Select ESE Exam Year
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                <button onclick="accessESE('2026')" class="ese-btn text-center p-4 rounded-xl bg-slate-900/60 border border-amber-500/30 text-sm font-bold transition-all duration-150 text-amber-400">ESE 2026</button>
+                <button onclick="accessESE('2025')" class="ese-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">ESE 2025</button>
+                <button onclick="accessESE('2024')" class="ese-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">ESE 2024</button>
+                <button onclick="accessESE('2023')" class="ese-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">ESE 2023</button>
+                <button onclick="accessESE('2022')" class="ese-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">ESE 2022</button>
+                <button onclick="accessESE('2021')" class="ese-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">ESE 2021</button>
+                <button onclick="accessESE('2020')" class="ese-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">ESE 2020</button>
+                <button onclick="accessESE('2019')" class="ese-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">ESE 2019</button>
+                <button onclick="accessESE('2018')" class="ese-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">ESE 2018</button>
+                <button onclick="accessESE('2017')" class="ese-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">ESE 2017</button>
+                <button onclick="accessESE('2016')" class="ese-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">ESE 2016</button>
+                <button onclick="accessESE('2015')" class="ese-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300 sm:col-span-1 md:col-span-4">ESE 2015</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =================================================== -->
+    <!-- NEW DEDICATED PAGE: RRB JE YEAR-WISE HUB           -->
+    <!-- =================================================== -->
+    <div id="rrb-hub-page" class="hidden min-h-[calc(100vh-4rem)] pt-24 px-4 sm:px-6 max-w-6xl mx-auto pb-16">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 border-b border-slate-800 pb-5">
+            <div>
+                <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">RRB Junior Engineer Hub</h1>
+                <p class="text-xs sm:text-sm text-slate-400 mt-1">Access comprehensive technical exam collections organized cleanly from 2015 to 2026.</p>
+            </div>
+            <button onclick="showPage('main')" class="gesture-btn px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs sm:text-sm font-semibold self-start flex items-center gap-2 border border-slate-700">
+                <i class="fa-solid fa-arrow-left"></i> Back to Home
+            </button>
+        </div>
+
+        <div class="bg-slate-800/30 border border-slate-800 p-6 rounded-2xl shadow-xl max-w-4xl mx-auto">
+            <h2 class="text-xl font-extrabold text-slate-200 mb-6 flex items-center gap-2">
+                <i class="fa-solid fa-train text-emerald-400"></i> Select RRB JE Paper Year
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                <button onclick="accessRRB('2026')" class="rrb-btn text-center p-4 rounded-xl bg-slate-900/60 border border-emerald-500/30 text-sm font-bold transition-all duration-150 text-emerald-400">RRB JE 2026</button>
+                <button onclick="accessRRB('2025')" class="rrb-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">RRB JE 2025</button>
+                <button onclick="accessRRB('2024')" class="rrb-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">RRB JE 2024</button>
+                <button onclick="accessRRB('2023')" class="rrb-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">RRB JE 2023</button>
+                <button onclick="accessRRB('2022')" class="rrb-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">RRB JE 2022</button>
+                <button onclick="accessRRB('2021')" class="rrb-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">RRB JE 2021</button>
+                <button onclick="accessRRB('2020')" class="rrb-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">RRB JE 2020</button>
+                <button onclick="accessRRB('2019')" class="rrb-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">RRB JE 2019</button>
+                <button onclick="accessRRB('2018')" class="rrb-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">RRB JE 2018</button>
+                <button onclick="accessRRB('2017')" class="rrb-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">RRB JE 2017</button>
+                <button onclick="accessRRB('2016')" class="rrb-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">RRB JE 2016</button>
+                <button onclick="accessRRB('2015')" class="rrb-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300 sm:col-span-1 md:col-span-4">RRB JE 2015</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =================================================== -->
+    <!-- NEW DEDICATED PAGE: PSU SPECIFIC YEAR-WISE HUB     -->
+    <!-- =================================================== -->
+    <div id="psu-hub-page" class="hidden min-h-[calc(100vh-4rem)] pt-24 px-4 sm:px-6 max-w-6xl mx-auto pb-16">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 border-b border-slate-800 pb-5">
+            <div>
+                <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Public Sector Undertakings Hub</h1>
+                <p class="text-xs sm:text-sm text-slate-400 mt-1">Access specialized technical screening sheets (ISRO / BARC / DRDO / Vizag Steel) 2015-2026.</p>
+            </div>
+            <button onclick="showPage('main')" class="gesture-btn px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs sm:text-sm font-semibold self-start flex items-center gap-2 border border-slate-700">
+                <i class="fa-solid fa-arrow-left"></i> Back to Home
+            </button>
+        </div>
+
+        <div class="bg-slate-800/30 border border-slate-800 p-6 rounded-2xl shadow-xl max-w-4xl mx-auto">
+            <h2 class="text-xl font-extrabold text-slate-200 mb-6 flex items-center gap-2">
+                <i class="fa-solid fa-building-shield text-purple-400"></i> Select PSU Recruitment Year
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                <button onclick="accessPSU('2026')" class="psu-btn text-center p-4 rounded-xl bg-slate-900/60 border border-purple-500/30 text-sm font-bold transition-all duration-150 text-purple-400">PSU Papers 2026</button>
+                <button onclick="accessPSU('2025')" class="psu-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">PSU Papers 2025</button>
+                <button onclick="accessPSU('2024')" class="psu-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">PSU Papers 2024</button>
+                <button onclick="accessPSU('2023')" class="psu-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">PSU Papers 2023</button>
+                <button onclick="accessPSU('2022')" class="psu-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">PSU Papers 2022</button>
+                <button onclick="accessPSU('2021')" class="psu-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">PSU Papers 2021</button>
+                <button onclick="accessPSU('2020')" class="psu-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">PSU Papers 2020</button>
+                <button onclick="accessPSU('2019')" class="psu-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">PSU Papers 2019</button>
+                <button onclick="accessPSU('2018')" class="psu-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">PSU Papers 2018</button>
+                <button onclick="accessPSU('2017')" class="psu-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">PSU Papers 2017</button>
+                <button onclick="accessPSU('2016')" class="psu-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300">PSU Papers 2016</button>
+                <button onclick="accessPSU('2015')" class="psu-btn text-center p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm font-bold transition-all duration-150 text-slate-300 sm:col-span-1 md:col-span-4">PSU Papers 2015</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =================================================== -->
+    <!-- DEDICATED PAGE: CONTACT PROFILE                    -->
+    <!-- =================================================== -->
+    <div id="contact-page" class="hidden min-h-[calc(100vh-4rem)] pt-24 px-4 sm:px-6 max-w-6xl mx-auto pb-16">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 border-b border-slate-800 pb-5">
+            <div>
+                <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Get In Touch</h1>
+                <p class="text-xs sm:text-sm text-slate-400 mt-1">Have academic queries, project proposals, or feedback? Drop a direct line below.</p>
+            </div>
+            <button onclick="showPage('main')" class="gesture-btn px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs sm:text-sm font-semibold self-start flex items-center gap-2 border border-slate-700">
+                <i class="fa-solid fa-arrow-left"></i> Back to Home
+            </button>
+        </div>
+
+        <div class="bg-slate-800/30 border border-slate-800 p-6 sm:p-10 rounded-2xl shadow-xl max-w-xl mx-auto">
+            <form onsubmit="event.preventDefault(); alert('Message transmission systems are currently offline. Please use standard direct social media hooks instead!');" class="space-y-5">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Full Name</label>
+                    <input type="text" placeholder="John Doe" required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none focus:border-indigo-500 transition-colors">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Email Identity</label>
+                    <input type="email" placeholder="john@example.com" required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none focus:border-indigo-500 transition-colors">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Your Message</label>
+                    <textarea rows="4" placeholder="Write your context here..." required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none focus:border-indigo-500 transition-colors"></textarea>
+                </div>
+                <button type="submit" class="gesture-btn w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl shadow-lg transition-all duration-150">
+                    <i class="fa-solid fa-paper-plane mr-2"></i> Send Message
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- =================================================== -->
+    <!-- CENTRALIZED ROUTING & ASSET MANAGER                -->
+    <!-- =================================================== -->
     <script>
+        // 1. SPA ROUTING ENGINE
+        function showPage(pageId) {
+            const pages = ['main-page', 'ece-notes-page', 'pyq-hub-page', 'ese-hub-page', 'rrb-hub-page', 'psu-hub-page', 'contact-page'];
+            
+            pages.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.classList.add('hidden');
+                }
+            });
+
+            const targetPage = document.getElementById(`${pageId}-page`);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+            }
+            
+            window.scrollTo(0, 0);
+        }
+
+        // 2. MOBILE RESPONSIVE NAVIGATION HAMBURGER INTERACTION
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-
-        menuBtn.addEventListener('click', toggleMobileMenu);
+        
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
 
         function toggleMobileMenu() {
-            mobileMenu.classList.toggle('hidden');
-            const icon = menuBtn.querySelector('i');
-            if (mobileMenu.classList.contains('hidden')) {
-                icon.className = 'fa-solid fa-bars';
-            } else {
-                icon.className = 'fa-solid fa-xmark';
+            if (mobileMenu) {
+                mobileMenu.classList.add('hidden');
             }
         }
 
-        function showPage(pageId) {
-            const mainPage = document.getElementById('main-page');
-            const contactPage = document.getElementById('contact-page');
+        // 3. CENTRAL ECE STUDY MATERIALS MANAGER
+        function accessNotes(topic) {
+            const noteAssets = {
+                'Linear Algebra': 'Linear Algebra.pdf',
+                'Differential Equations': 'links/math/differential-eq.pdf',
+                'Complex Analysis': 'links/math/complex.pdf',
+                'Calculus': 'links/math/calculus.pdf',
+                'Vector Analysis': 'links/math/vector.pdf',
+                'Probability and Statistics': 'links/math/probability.pdf',
+                'Circuit Analysis': 'links/networks/circuit.pdf',
+                'Continuous-time Signals': 'links/networks/continuous.pdf',
+                'Discrete-time Signals': 'links/networks/discrete.pdf',
+                'Diode Circuits': 'links/analog/diode-circuits.pdf', 
+                'BJT & MOSFET Amplifiers': 'links/analog/amplifiers.pdf',
+                'Op-Amp Circuits': 'links/analog/opamps.pdf'
+            };
 
-            if (pageId === 'main') {
-                mainPage.classList.remove('hidden');
-                contactPage.classList.add('hidden');
-            } else if (pageId === 'contact') {
-                mainPage.classList.add('hidden');
-                contactPage.classList.remove('hidden');
-                window.scrollTo(0, 0);
+            const url = noteAssets[topic];
+            if (url) {
+                window.open(url, '_blank');
+            } else {
+                alert(`The structured study notes for "${topic}" are currently being compiled. Check back soon!`);
+            }
+        }
+
+        // 4. CENTRAL GATE PYQ PAPERS MANAGER
+        function accessPYQ(year) {
+            const pyqAssets = {
+                '2026': 'links/pyq/gate-2026.pdf',
+                '2025': 'links/pyq/gate-2025.pdf',
+                '2024': 'links/pyq/gate-2024.pdf'
+            };
+
+            const url = pyqAssets[year];
+            if (url) {
+                window.open(url, '_blank');
+            } else {
+                alert(`The GATE ${year} question papers and detailed keys are currently being processed. Check back soon!`);
+            }
+        }
+
+        // 5. CENTRAL UPSC ESE PAPERS MANAGER
+        function accessESE(year) {
+            const ESEAssets = {
+                '2026': 'links/ese/ese-2026.pdf',
+                '2025': 'links/ese/ese-2025.pdf',
+                '2024': 'links/ese/ese-2024.pdf'
+            };
+
+            const url = ESEAssets[year];
+            if (url) {
+                window.open(url, '_blank');
+            } else {
+                alert(`UPSC ESE ${year} Engineering Services Objective & Conventional answer sets are currently loading. Check back soon!`);
+            }
+        }
+
+        // 6. CENTRAL RRB JE PAPERS MANAGER
+        function accessRRB(year) {
+            const rrbAssets = {
+                '2026': 'links/rrb/rrb-2026.pdf',
+                '2025': 'links/rrb/rrb-2025.pdf',
+                '2019': 'links/rrb/rrb-2019.pdf'
+            };
+
+            const url = rrbAssets[year];
+            if (url) {
+                window.open(url, '_blank');
+            } else {
+                alert(`The compiled RRB Junior Engineer Technical question booklet for ${year} is currently being compiled. Check back soon!`);
+            }
+        }
+
+        // 7. CENTRAL PSU SPECIALIZED PAPERS MANAGER
+        function accessPSU(year) {
+            const psuAssets = {
+                '2026': 'links/psu/psu-2026.pdf',
+                '2025': 'links/psu/psu-2025.pdf',
+                '2024': 'links/psu/psu-2024.pdf'
+            };
+
+            const url = psuAssets[year];
+            if (url) {
+                window.open(url, '_blank');
+            } else {
+                alert(`Specialized PSU question packs (ISRO/BARC/DRDO) for recruitment year ${year} are being structured. Check back soon!`);
             }
         }
     </script>
